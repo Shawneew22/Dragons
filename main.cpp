@@ -20,10 +20,10 @@ int main()
 	int choice = 0;
 
 	cout << "Mars Colony Main Menu" << endl;
-	cout << endl << "1.  Set Mission Parameters" << endl;
-	cout << "2.  Run Simulation" << endl;
-	cout << "3.  Quit" << endl;
-	cout << "Choice >>";
+	cout << endl << "1. Set Mission Parameters" << endl;
+	cout << "2. Run Simulation" << endl;
+	cout << "3. Quit" << endl;
+	cout << "Choice >> ";
 	cin >> choice;
 
 	if (choice == 3)
@@ -33,7 +33,27 @@ int main()
 
 	else if (choice == 1)
 	{
-		cout << "Mission parameters selected" << endl;
+		cout << "A. Food grown - per day.............. ";
+		cin >> foodGrown_PerDay;
+		cout << "B. Cleanup - per person - per day.... ";
+		cin >> cleanup_PerPersonPerDay;
+		cout << "C. Starting units of food............ ";
+		cin >> foodCount;
+		cout << "D. Mission length in days............ ";
+		cin >> missionLength;
+		cout << "E. People on mission................. ";
+		cin >> peopleCount;
+		cout << "F. Team name......................... ";
+		cin >> teamName;
+
+		/* Test code */
+		cout << "foodGrown_PerDay: " << foodGrown_PerDay << endl;
+		cout << "cleanup_PerPersonPerDay: " << cleanup_PerPersonPerDay << endl;
+		cout << "foodCount: " << foodCount << endl;
+		cout << "missionLength: " << missionLength << endl;
+		cout << "peopleCount: " << peopleCount << endl;
+		cout << "teamName: " << teamName << endl;
+
 	}
 	else if (choice == 2)
 	
