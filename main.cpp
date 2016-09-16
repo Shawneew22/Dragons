@@ -65,7 +65,6 @@ int main()
 			cout << "Running simulation" << endl;
 
 			while (day <= missionLength)
-
 			{
 				cout << endl << "Day " << day << " of " << missionLength << ": " << endl;
 				cout << "    " << foodGrown_PerDay << " units of food grown " << endl;
@@ -81,7 +80,12 @@ int main()
 					cout << endl << "Mission failure: " << teamName << " ran out of food." << endl;
 					break;
 				}
+
 				wasteCount += (wasteCreated_PerPersonPerDay * peopleCount) - (cleanup_PerPersonPerDay * peopleCount);
+				if (wasteCount < 0)
+				{
+					wasteCount = 0;
+				}
 				if (wasteCount > 20)
 				{
 					missionSuccess = false;
@@ -90,7 +94,7 @@ int main()
 				}
 
 				oxygenCount += oxygenCreated_PerDay - (oxygenUsed_PerPersonPerDay * peopleCount);
-								if (oxygenCount < 0)
+				if (oxygenCount < 0)
 				{
 					missionSuccess = false;
 					cout << endl << "Mission failure: " << teamName << " ran out of air to breath." << endl;
@@ -101,7 +105,6 @@ int main()
 				day++;
 			}
 			if (missionSuccess)
-
 			{
 				cout << endl << "Mission outcome: Success" << endl;
 			}
