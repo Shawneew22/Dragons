@@ -1,50 +1,79 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-using namespace std;
-
-
 #include<iostream>
 #include<string>
 #include<fstream>
-
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
-void Searchfile(string filename, string searchFor)
+void LoadNouns(string nouns[100], int & nounCount)
 {
 	ifstream input;
-	int lineCount = 0;
-	input.open(filename);
+	input.open("one.txt");
+	nounCount = 0;
+	string buffer;
+	
 
-	string lineOfText;
-
-	while (getline(input, lineOfText))
+	while (getline(input, buffer))
 	{
-		if (lineOfText.find(searchFor) != string::npos)
-		{
-			cout << "Found at line: " << lineCount << ": " << lineOfText << endl << endl;
-		}
-
-		
-			
-		lineCount++;
-		
+		nouns[nounCount] = buffer;
+		nounCount++;
 	}
 	input.close();
+}
 
+
+
+void LoadAdjectives(string adjectives[100], int & adjectiveCount)
+{
+	{
+		ifstream input;
+		input.open("two.txt");
+		adjectiveCount = 0;
+		string buffer;
+	
+
+		while (getline(input, buffer))
+		{
+			adjectives[adjectiveCount] = buffer;
+			adjectiveCount++;
+		}
+		input.close();
+	}
+}
+
+string GeneratePoem(string nouns[100], int nounCount, string adjectives[100], int adjectiveCount)
+{
+	string poem = " ";
+	int randomNoun = rand() % nounCount;
+	int randomAdj = rand() % adjectiveCount;
+	poem += nouns[randomNoun] + " are " + adjectives[randomAdj] + ", \n";
+	randomNoun = rand() % nounCount;
+	randomAdj = rand() % adjectiveCount;
+	poem += nouns[randomNoun] + " are " + adjectives[randomAdj] + ", \n";
+	randomNoun = rand() % nounCount;
+	randomAdj = rand() % adjectiveCount;
+	poem += nouns[randomNoun] + " are " + adjectives[randomAdj] + ", \n";
+	poem += "and so are you! ";
+	return poem;
 }
 
 
 
 int main()
 {
-	
+	srand(time(NULL));
+	string nouns[100];
+	int nounCount;
+	string adjectives[100];
+	int adjectiveCount;
 
-	cout << "What do you want to search for? ";
-	string searchFor;
-	cin >> searchFor;
+	LoadNouns(nouns, nounCount);
+	LoadAdjectives(adjectives, adjectiveCount);
+	string poem;
+	poem = GeneratePoem(nouns, nounCount, adjectives, adjectiveCount);
 
-	Searchfile("fable.txt", searchFor);
+	cout << "RANDOM POEM: " << endl;
+	cout << poem << endl;
 
 	return 0;
 }
