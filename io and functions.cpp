@@ -4,16 +4,31 @@
 using namespace std;
 
 
-void ReadFile(string filename)
+#include<iostream>
+#include<string>
+#include<fstream>
+
+using namespace std;
+
+void Searchfile(string filename, string searchFor)
 {
 	ifstream input;
+	int lineCount = 0;
 	input.open(filename);
 
 	string lineOfText;
 
 	while (getline(input, lineOfText))
 	{
-		cout << lineOfText << endl;
+		if (lineOfText.find(searchFor) != string::npos)
+		{
+			cout << "Found at line: " << lineCount << ": " << lineOfText << endl << endl;
+		}
+
+		
+			
+		lineCount++;
+		
 	}
 	input.close();
 
@@ -23,8 +38,13 @@ void ReadFile(string filename)
 
 int main()
 {
-	ReadFile("fable.txt");
 	
+
+	cout << "What do you want to search for? ";
+	string searchFor;
+	cin >> searchFor;
+
+	Searchfile("fable.txt", searchFor);
 
 	return 0;
 }
