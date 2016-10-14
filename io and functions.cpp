@@ -1,79 +1,59 @@
 #include<iostream>
 #include<string>
 #include<fstream>
-#include <cstdlib>
-#include <ctime>
+
 using namespace std;
 
-void LoadNouns(string nouns[100], int & nounCount)
+int LoadClasses(string classes[100])
 {
 	ifstream input;
-	input.open("one.txt");
-	nounCount = 0;
+	input.open("classes.txt");
+	int classCounter = 0;
 	string buffer;
-	
 
 	while (getline(input, buffer))
 	{
-		nouns[nounCount] = buffer;
-		nounCount++;
+		classes[classCounter] = buffer;
+		classCounter++;
 	}
+
 	input.close();
+
+	return classCounter;
 }
 
-
-
-void LoadAdjectives(string adjectives[100], int & adjectiveCount)
+void SaveClasses(string classes[100], int classCount)
 {
+	ofstream outfile;
+	outfile.open("classes.txt");
+
+	for (int i = 0; i <= classCount; i++)
 	{
-		ifstream input;
-		input.open("two.txt");
-		adjectiveCount = 0;
-		string buffer;
-	
-
-		while (getline(input, buffer))
-		{
-			adjectives[adjectiveCount] = buffer;
-			adjectiveCount++;
-		}
-		input.close();
+		outfile << classes[i] << endl;
 	}
-}
 
-string GeneratePoem(string nouns[100], int nounCount, string adjectives[100], int adjectiveCount)
-{
-	string poem = " ";
-	int randomNoun = rand() % nounCount;
-	int randomAdj = rand() % adjectiveCount;
-	poem += nouns[randomNoun] + " are " + adjectives[randomAdj] + ", \n";
-	randomNoun = rand() % nounCount;
-	randomAdj = rand() % adjectiveCount;
-	poem += nouns[randomNoun] + " are " + adjectives[randomAdj] + ", \n";
-	randomNoun = rand() % nounCount;
-	randomAdj = rand() % adjectiveCount;
-	poem += nouns[randomNoun] + " are " + adjectives[randomAdj] + ", \n";
-	poem += "and so are you! ";
-	return poem;
 }
-
 
 
 int main()
 {
-	srand(time(NULL));
-	string nouns[100];
-	int nounCount;
-	string adjectives[100];
-	int adjectiveCount;
+		string classes[100];
+		int classCount = LoadClasses(classes);
 
-	LoadNouns(nouns, nounCount);
-	LoadAdjectives(adjectives, adjectiveCount);
-	string poem;
-	poem = GeneratePoem(nouns, nounCount, adjectives, adjectiveCount);
+		for (int i = 0; i < classCount; i++)
+		{
+			cout << i << ". " << classes[i] << endl;
+		}
 
-	cout << "RANDOM POEM: " << endl;
-	cout << poem << endl;
+		cout << "Edit which class? ";
+		int edit;
+		cin >> edit;
 
-	return 0;
+		cout << "New class name? ";
+		cin >> classes[edit];
+
+		SaveClasses(classes, classCount);
+
+		return 0;
+	
 }
